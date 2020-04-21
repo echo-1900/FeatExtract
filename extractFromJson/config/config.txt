@@ -1,0 +1,20 @@
+[filePath]
+joy_output_dir=../../data/http_tls_dns_bir_entropy/
+result_dir=../../result/
+
+[filename]
+#for extractFeat
+extractInput=2_json
+extractOutput=2_json.csv
+
+#for onehot encoding
+onehotInput=2_json.csv
+onehotOutput=encodedExtentions.csv
+
+#for combine csv
+combineInput=2_json.csv,encodedCs.csv,encodedExtentions.csv
+combineOutput=afterConcat.csv
+
+[onehotfield]
+onehotfieldname=cs
+#onehotfieldname=c_extensions
