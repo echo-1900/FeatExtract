@@ -32,8 +32,8 @@ def extractPacketsInfo(flow):
         inter_arrival_time = [0]
         for pkt in packets:
             packets_length.append(pkt['b'])
-        for i in range(len(packets)-1):
-            inter_arrival_time.append(packets[i+1]["ipt"]-packets[i]["ipt"])
+        for i in range(1, len(packets)):#从1开始，因为第一个包的inter-arrival time始终为0
+            inter_arrival_time.append(packets[i]["ipt"])
         ret = [min(packets_length),max(packets_length),int(mean(packets_length)),
                 min(inter_arrival_time),max(inter_arrival_time),int(mean(inter_arrival_time))]
         return ret
