@@ -1,6 +1,7 @@
 # coding:utf-8
 from numpy import mean
 from numpy import std
+import time
 import re
 
 NULL = "null"
@@ -34,6 +35,7 @@ def extractBaseInfo(flow):
         except:
             ret.append(NULL)
     return ret
+
 
 
 def extractPacketsInfo(flow):
@@ -108,14 +110,58 @@ def extractTlsInfo(flow):
     return ret
 
 
+def extractCertInfo(flow):
+    '''
+    提取证书信息
+    :param flow:传入数据流，flow是dict类型，tls也是dict类型，s_cert是list
+    :return:[certChainLen,issuerLen,expiration,certExtLen,subjectLen,isSubEqualIsu,divition]
+    '''
+    ret = []
+    try:
+        cert = flow['tls']['s_cert']
+    except:
+        return [NULL]*7
+    if len(cert)==0:
+        return [NULL]*7
+    try:
+        #证书链长度
+        certChainLen = len(cert)
+        #第一张证书发行者路径长度
+        issuerLen = len(cert[0]['issuer'])
+        #第一张证书的有效期
+        GMT_FORMAT = "%b %d %H:%M:%S %Y GMT"
+        cert_begin = time.mktime(time.strptime(cert[0]["validity_not_before"],GMT_FORMAT))
+        cert_end = time.mktime(time.strptime(cert[0]["validity_not_after"],GMT_FORMAT))
+        expiration = cert_end - cert_begin
+        #第一张证书的扩展数量
+        certExtLen = len(cert[0]['extensions'])
+        #第一张证书的主题路径长度
+        subjectLen = len(cert[0]['subject'])
+        #第一张证书的issuer和subject是否相同
+        issuerCN, = cert[0]['issuer'][-1].values()
+        subjectCN, = cert[0]['subject'][-1].values()
+        isSubEqualIsu = (issuerCN==subjectCN)
+        #已生效时间/总有效时间
+        flow_time = flow["time_start"]
+        divition = (flow_time-cert_begin)/(expiration)
+
+        return [certChainLen,issuerLen,expiration,certExtLen,subjectLen,isSubEqualIsu,divition]
+    except:
+        return [NULL]*7
+
+
+
 def extract(flow):
     ret = []
 
     base_info = extractBaseInfo(flow)
     packets_info = extractPacketsInfo(flow)
     tls_info = extractTlsInfo(flow)
+    cert_info = extractCertInfo(flow)
 
     ret.extend(base_info)
     ret.extend(packets_info)
     ret.extend(tls_info)
+    ret.extend(cert_info)
     return ret
+

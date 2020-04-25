@@ -1,10 +1,10 @@
 [filePath]
 joy_output_dir=../../data/waiting_labled/
-result_dir=../../result/waiting_labled/
+result_dir=../../result/test
 
 [filename]
 #for extractFeat
-extractInput=malware_json_50per
+extractInput=benign_json_50per
 extractOutput=extractOut.csv
 
 #for onehot encoding

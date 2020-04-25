@@ -20,6 +20,7 @@ def extractBegin():
             ,"min_packets_len","max_packets_len","mean_packets_len","std_packets_len"
             ,"min_ipt","max_ipt","mean_ipt","std_ipt"
             ,"cs","cs_len","c_extensions","c_extensions_len","c_key_length" ,"SNIisIP"
+            ,"certChainLen","issuerLen","expiration","certExtLen","subjectLen","isSubEqualIsu","divition"
                          ])
         with open(joy_file_dir+input_file_name,'r') as f:
             for line in f.readlines()[1:]:
