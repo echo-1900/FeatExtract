@@ -8,7 +8,7 @@ def combineCsv(filenameList,outputfile):
     for i in filenameList:
         df_list.append(pd.read_csv(i))
     all_data = pd.concat(df_list,axis=1)
-    all_data.to_csv(outputfile,index_label=False)
+    all_data.to_csv(outputfile,index=False)
 
 def combineBegin():
     cfg=ConfigParser()

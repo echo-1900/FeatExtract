@@ -16,10 +16,10 @@ def extractBegin():
     with open(result_dir+output_file_name,'w',newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow([
-             "num_pkts_in", "num_pkts_out","bytes_in", "bytes_out"
-            ,"min_packets_length","max_packets_length","mean_packets_length"
-            ,"min_inter_arrival_time","max_inter_arrival_time","mean_inter_arrival_time"
-            ,"cs","c_extensions","c_key_length" ,"sni"
+            "num_pkts_in", "num_pkts_out","bytes_in", "bytes_out"
+            ,"min_packets_len","max_packets_len","mean_packets_len","std_packets_len"
+            ,"min_ipt","max_ipt","mean_ipt","std_ipt"
+            ,"cs","cs_len","c_extensions","c_extensions_len","c_key_length" ,"SNIisIP"
                          ])
         with open(joy_file_dir+input_file_name,'r') as f:
             for line in f.readlines()[1:]:

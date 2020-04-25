@@ -1,20 +1,19 @@
 [filePath]
-joy_output_dir=../../data/http_tls_dns_bir_entropy/
-result_dir=../../result/
+joy_output_dir=../../data/waiting_labled/
+result_dir=../../result/waiting_labled/
 
 [filename]
 #for extractFeat
-extractInput=2_json
-extractOutput=2_json.csv
+extractInput=malware_json_50per
+extractOutput=extractOut.csv
 
 #for onehot encoding
-onehotInput=2_json.csv
-onehotOutput=encodedExtentions.csv
+onehotInput=extractOut.csv
+
 
 #for combine csv
-combineInput=2_json.csv,encodedCs.csv,encodedExtentions.csv
+combineInput=extractOut.csv,encodedcs.csv,encodedc_extensions.csv
 combineOutput=afterConcat.csv
 
 [onehotfield]
-onehotfieldname=cs
-#onehotfieldname=c_extensions
+onehotfieldname=cs,c_extensions
